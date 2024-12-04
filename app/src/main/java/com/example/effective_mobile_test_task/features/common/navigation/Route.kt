@@ -1,12 +1,11 @@
 package com.example.effective_mobile_test_task.features.common.navigation
 
-import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface Route{
     @Serializable
-    data object MainScreenRoute: Route
+    data object AirTicketsRoute: Route
     @Serializable
     data object SearchRoute: Route
     @Serializable

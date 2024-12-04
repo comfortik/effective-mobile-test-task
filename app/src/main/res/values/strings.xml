@@ -5,4 +5,6 @@
     <string name="in_short">Короче</string>
     <string name="subscriptions">Подписки</string>
     <string name="profile">Профиль</string>
+    <string name="from">Откуда - Минск</string>
+    <string name="to">Куда - Москва</string>
 </resources>

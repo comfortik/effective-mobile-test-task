@@ -1,13 +1,11 @@
 package com.example.effective_mobile_test_task
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import com.example.effective_mobile_test_task.features.common.base.BaseViewModel
 import com.example.effective_mobile_test_task.features.common.navigation.BottomBarItem
 import com.example.effective_mobile_test_task.features.common.navigation.Route
-import com.example.effective_mobile_test_task.features.main.models.MainAction
-import com.example.effective_mobile_test_task.features.main.models.MainIntent
-import com.example.effective_mobile_test_task.features.main.models.MainState
+import com.example.effective_mobile_test_task.features.models.MainAction
+import com.example.effective_mobile_test_task.features.models.MainIntent
+import com.example.effective_mobile_test_task.features.models.MainState
 
 
 class MainViewModel: BaseViewModel<MainState, MainAction, MainIntent>() {
@@ -26,8 +24,8 @@ class MainViewModel: BaseViewModel<MainState, MainAction, MainIntent>() {
             }
         }
     }
-    override fun createInitState(): MainState  = MainState(
+    override fun createInitState(): MainState = MainState(
         currentNavBarItem = BottomBarItem.AirTicketsItem,
-        currentRoute = Route.MainScreenRoute
+        currentRoute = Route.AirTicketsRoute
     )
 }

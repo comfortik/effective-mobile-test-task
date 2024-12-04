@@ -14,7 +14,7 @@ sealed class BottomBarItem {
 
     data object AirTicketsItem: BottomBarItem() {
         override val title = R.string.air_tickets
-        override val route: Route = Route.MainScreenRoute
+        override val route: Route = Route.AirTicketsRoute
         override val icon: Int = R.drawable.ic_airplane
     }
 

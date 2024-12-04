@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.example.effective_mobile_test_task"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -55,6 +55,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation("io.insert-koin:koin-androidx-compose:3.4.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
