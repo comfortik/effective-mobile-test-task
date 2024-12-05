@@ -4,6 +4,7 @@ import com.example.effective_mobile_test_task.domain.models.Offer
 import com.example.effective_mobile_test_task.features.common.base.BaseState
 
 data class AirTicketsUiState (
+    val isLoading:Boolean  =true,
     val offers: List<Offer> = listOf(),
     val departureCity: String = "",
     val arriveCity: String="",

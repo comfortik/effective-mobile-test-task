@@ -1,6 +1,6 @@
 package com.example.effective_mobile_test_task.data.sources.remote.apis
 
-import com.example.effective_mobile_test_task.data.dto.OffersResponse
+import com.example.effective_mobile_test_task.data.dto.responses.OffersResponse
 import retrofit2.http.GET
 
 interface OffersApi {

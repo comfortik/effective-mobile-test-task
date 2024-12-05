@@ -7,4 +7,8 @@
     <string name="profile">Профиль</string>
     <string name="from">Откуда - Минск</string>
     <string name="to">Куда - Москва</string>
+    <string name="popular">Популярное направление</string>
+    <string name="back">Обратно</string>
+    <string name="filtres">Фильтры</string>
+    <string name="one_econom">1, эконом</string>
 </resources>

@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.effective_mobile_test_task"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

@@ -41,7 +41,11 @@ class MainActivity: ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     bottomBar ={
                         Column{
-                            if(state.value.currentRoute is Route.AirTicketsRoute || state.value.currentRoute is Route.PlugRoute){
+                            if(
+                                state.value.currentRoute is Route.AirTicketsRoute
+                                || state.value.currentRoute is Route.PlugRoute
+                                || state.value.currentRoute is Route.AllTicketsRoute
+                                ){
                                 Box(Modifier.fillMaxWidth().height(1.dp).background(colorResource(R.color.dark_gray)))
                                 BottomNavigationBar(
                                     onItemClick = {bottomBarItem ->
@@ -67,18 +71,3 @@ class MainActivity: ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EffectivemobiletesttaskTheme {
-        Greeting("Android")
-    }
-}

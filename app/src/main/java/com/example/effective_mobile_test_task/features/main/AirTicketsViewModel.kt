@@ -16,10 +16,16 @@ class AirTicketsViewModel(
 ):BaseViewModel<AirTicketsUiState, AirTicketAction, AirTicketsIntent>() {
     init {
         viewModelScope.launch {
-            _state.value = state.copy(
-                offers = offersRepository.getOffers().map { it.toDomain() }
-            )
+            try {
+                _state.value = state.copy(
+                    offers = offersRepository.getOffers().map { it.toDomain() },
+                    isLoading = false
+                )
+            }catch (e: Exception){
+                Log.e("air Tickets view model", e.message.toString())
+            }
         }
+
     }
     override fun createInitState(): AirTicketsUiState = AirTicketsUiState()
 
@@ -33,6 +39,7 @@ class AirTicketsViewModel(
             }
             is AirTicketsIntent.OnSearchItemClicked -> {
                 _action.tryEmit(AirTicketAction.NavigateToSearchScreen)
+
             }
         }
     }

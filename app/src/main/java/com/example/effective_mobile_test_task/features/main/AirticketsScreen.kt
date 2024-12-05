@@ -4,10 +4,13 @@ package com.example.effective_mobile_test_task.features.main
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.effective_mobile_test_task.R
 import com.example.effective_mobile_test_task.domain.models.Offer
 import com.example.effective_mobile_test_task.features.common.defaultTextFieldColors
+import com.example.effective_mobile_test_task.features.common.isCyrillic
 import com.example.effective_mobile_test_task.features.main.model.AirTicketAction
 import com.example.effective_mobile_test_task.features.main.model.AirTicketsIntent
 import org.koin.androidx.compose.koinViewModel
@@ -56,14 +61,21 @@ fun AirTicketsScreen(
             }
         }
     }
-
-    AirTicketScreenContent(
-        offers = state.value.offers,
-        departureCity = state.value.departureCity,
-        arrivedCity = state.value.arriveCity,
-        onDepartureCityChanged = {viewModel.handleIntent( AirTicketsIntent.OnDepartureCityChanged(it))},
-        onModalViewVisible = {viewModel.handleIntent(AirTicketsIntent.OnSearchItemClicked)}
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (state.value.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else {
+            AirTicketScreenContent(
+                offers = state.value.offers,
+                departureCity = state.value.departureCity,
+                arrivedCity = state.value.arriveCity,
+                onDepartureCityChanged = { viewModel.handleIntent(AirTicketsIntent.OnDepartureCityChanged(it)) },
+                onModalViewVisible = navigateToSearchScreen
+            )
+        }
+    }
 
 
 
@@ -214,7 +226,9 @@ fun SearchTextField(
             modifier = modifier,
             value = text,
             textStyle  = textStyle,
-            onValueChange = onTextChanged,
+            onValueChange ={
+                if (it.all { it.isCyrillic() }) onTextChanged(it)
+            },
             colors = textFieldColors,
             enabled = enabled,
             placeholder = { Text(text =hint, style = TextStyle(color = colorResource(R.color.light_gray)))}

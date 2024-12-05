@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.effective_mobile_test_task.R
 import com.example.effective_mobile_test_task.features.allTicketsScreen.AllTicketsScreen
 import com.example.effective_mobile_test_task.features.common.navigation.BottomBarItem.AirTicketsItem
@@ -29,6 +30,7 @@ import com.example.effective_mobile_test_task.features.common.navigation.BottomB
 import com.example.effective_mobile_test_task.features.common.screens.PlugScreen
 import com.example.effective_mobile_test_task.features.main.AirTicketsScreen
 import com.example.effective_mobile_test_task.features.searchScreen.SearchScreen
+import com.example.effective_mobile_test_task.features.ticketsScreen.TicketsScreen
 
 @Composable
 fun BottomNavigationBar(
@@ -87,8 +89,36 @@ fun CreateNavigation(navController: NavHostController,
             onRouteChanged(Route.AirTicketsRoute)
         }
         composable<Route.PlugRoute> { PlugScreen(); onRouteChanged(Route.PlugRoute) }
-        composable<Route.SearchRoute> { SearchScreen(); onRouteChanged(Route.SearchRoute) }
-        composable<Route.AllTicketsRoute> { AllTicketsScreen(); onRouteChanged(Route.AllTicketsRoute) }
+        composable<Route.SearchRoute> {
+            SearchScreen(
+                onPlugClick = { navController.navigate(Route.PlugRoute)},
+                onSearchClick = { departure, arrived->
+                    navController.navigate(Route.AllTicketsRoute(departure, arrived))
+                }
+            )
+            onRouteChanged(Route.SearchRoute)
+        }
+        composable<Route.TicketsRoute> {navBackStackEntry->
+            val arrivedCity = navBackStackEntry.toRoute<Route.TicketsRoute>().arrivedCity
+            val departureCity = navBackStackEntry.toRoute<Route.TicketsRoute>().departureCity
+            val date = navBackStackEntry.toRoute<Route.TicketsRoute>().date
+            TicketsScreen(departureCity, arrivedCity, date){
+                navController.navigateUp()
+            }
+
+        }
+        composable<Route.AllTicketsRoute> {navBackStackEntry->
+            val arrivedCity = navBackStackEntry.toRoute<Route.AllTicketsRoute>().arrivedCity
+            val departureCity = navBackStackEntry.toRoute<Route.AllTicketsRoute>().departureCity
+            AllTicketsScreen(departureCity, arrivedCity,
+                onButtonClicked = { departureCityClick, arrivedCityClick, date->
+                    navController.navigate(Route.TicketsRoute(departureCityClick, arrivedCityClick, date))
+                },
+                onBackPressed = {navController.navigateUp()}
+            )
+            onRouteChanged(Route.AllTicketsRoute(departureCity, arrivedCity))
+        }
     }
 }
+
 
